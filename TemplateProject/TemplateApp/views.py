@@ -3,5 +3,6 @@ from django.shortcuts import render
 # Create your views here.
 
 def index(request):
-  return render(request, 'index.html')
+  val = 'Good Bye'
+  return render(request, 'index.html', context={'value': val})
 
