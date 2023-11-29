@@ -25,3 +25,27 @@ def sample1(request):
 
 def sample2(request):
   return render(request, 'sample2.html')
+
+def sample(request):
+  name = 'ichiro yamada'
+  height = 175.5
+  weight = 72
+  bmi = weight / (height/100) ** 2
+  page_url = 'ホームページ: https://www.google.com/'
+  favorite_fruits = ['apple', 'banana', 'orange']
+  msg = """hello
+  my name is 
+  ichiro
+  """
+  msg2 = '1234567890'
+
+  return render(request, 'sample.html', context={
+    'name': name,
+    'height': height,
+    'weight': weight,
+    'bmi': bmi,
+    'page_url': page_url,
+    'favorite_fruits': favorite_fruits,
+    'msg': msg,
+    'msg2': msg2,
+  })
