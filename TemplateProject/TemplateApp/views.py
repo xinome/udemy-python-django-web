@@ -51,3 +51,15 @@ def sample(request):
     'msg': msg,
     'msg2': msg2,
   })
+
+class Country:
+  def __init__(self, name, population, capital):
+    self.name = name
+    self.population = population
+    self.capital = capital
+
+def sample3(request):
+  country = Country('Japan', 126800000, 'Tokyo')
+  return render(request, 'sample3.html', context={
+    'country': country,
+  })
