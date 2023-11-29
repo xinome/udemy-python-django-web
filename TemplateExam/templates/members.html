@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block title %}
-  メンバー一覧 {{ block.super}}
+  メンバー一覧 {{ block.super }}
 {% endblock %}
 {% block content %}
-  {% for memmer in members %}
+  {% for member in members %}
     <p><a href="{% url 'app:member' id=member.id %}">
       {{ member.name }}
     </a></p>
