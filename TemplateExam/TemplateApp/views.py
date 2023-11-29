@@ -30,6 +30,6 @@ def members(request):
 
 # メンバー詳細画面
 def member(request, id):
-    return render(request, 'member.html', context={
+    return render(request, 'member_detail.html', context={
       'member': member_list[id]
     })
