@@ -13,11 +13,13 @@ def home(request):
     'name': 'Taro',
     'age': 18,
   }
+  status = 20
 
   return render(request, 'home.html', context={
     'my_name': my_name,
     'favorite_fruits': favorite_fruits,
     'my_info': my_info,
+    'status': status,
   })
 
 def sample1(request):
