@@ -35,7 +35,7 @@ class Students(models.Model):
 
   # ForeignKeyで外部キーを設定
   # on_delete=models.CASCADEで外部キーのレコードが削除されたら、それに紐づくレコードも削除
-  school = models.ForeignKey('Schools', on_delete=models.CASCADE)
+  school = models.ForeignKey('Schools', on_delete=models.PROTECT)
 
   class Meta:
     db_table = 'students'

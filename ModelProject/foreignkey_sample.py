@@ -43,8 +43,8 @@ def select_students():
     )
 
 # insert_records()
-select_students()
+# select_students()
 
-# Schools.objects.filter(id=1).delete()
+Schools.objects.filter(id=1).delete()
 # Prefectures.objects.filter(id=1).delete()
 
