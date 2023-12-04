@@ -20,7 +20,7 @@ def insert_records():
     for school_name in schools:
       school = Schools(
         name=school_name,
-        prefecuture=prefecture
+        prefecture=prefecture
       )
       school.save()
 
@@ -39,7 +39,7 @@ def select_students():
     print(
       student.id, student.name, 
       student.school.id, student.school.name, 
-      student.school.prefecuture.id, student.school.prefecuture.name
+      student.school.prefecture.id, student.school.prefecture.name
     )
 
 # insert_records()
