@@ -10,11 +10,11 @@ class Tests(models.Model):
 
 
 class TestResults(models.Model):
-  student_id = models.ForeignKey(
+  student = models.ForeignKey(
     'Students',
     on_delete=models.CASCADE
   )
-  test_id = models.ForeignKey(
+  test = models.ForeignKey(
     'Tests',
     on_delete=models.CASCADE
   )
@@ -25,7 +25,7 @@ class TestResults(models.Model):
 
 
 class Students(models.Model):
-  class_id = models.ForeignKey(
+  class_fk = models.ForeignKey(
     'Classes',
     on_delete=models.CASCADE
   )
