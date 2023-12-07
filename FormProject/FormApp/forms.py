@@ -5,7 +5,7 @@ class UserInfo(forms.Form):
   age = forms.IntegerField(label='年齢')
   mail = forms.EmailField(
     label='メールアドレス',
-    widget=forms.TextInput(attrs={'placeholder': 'sample@mail.com'})
+    widget=forms.TextInput(attrs={'class': 'mail_class', 'placeholder': 'sample@mail.com'})
   )
 
   is_married = forms.BooleanField(initial=True)
@@ -19,3 +19,9 @@ class UserInfo(forms.Form):
   ), widget=forms.CheckboxSelectMultiple)
   homepage = forms.URLField(required=False)
   memo = forms.CharField(widget=forms.Textarea, required=False)
+
+# コンストラクタでスタイルを指定
+def __init__(self, *args, **kwargs):
+  super(UserInfo, self).__init__(*args, **kwargs)
+  self.fields['job'].widget.attrs['id'] = 'id_job'
+  self.fields['hobbies'].widget.attrs['class'] = 'class_hobbies'

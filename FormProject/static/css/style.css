@@ -1,0 +1,16 @@
+.mail_class {
+  width: 70%;
+  color: blue;
+}
+
+label[for="id_mail"] {
+  color: red;
+}
+
+#id_job {
+  list-style: none;
+}
+
+.class_hobbies {
+  list-style: none;
+}
