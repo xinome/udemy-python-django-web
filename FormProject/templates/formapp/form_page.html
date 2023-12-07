@@ -5,6 +5,15 @@
   <title>Form</title>
 </head>
 <body>
-  {{ form }}
+  <form method="POST">
+    {% comment %}
+      csrf_tokenは必ずformタグの中に書く
+    {% endcomment %}
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <input type="submit" value="送信">
+  </form>
 </body>
 </html>
