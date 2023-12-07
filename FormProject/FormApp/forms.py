@@ -1,8 +1,12 @@
 from django import forms
+from django.core import validators
 
 class UserInfo(forms.Form):
   name = forms.CharField(label='名前', max_length=10)
-  age = forms.IntegerField(label='年齢')
+  age = forms.IntegerField(label='年齢', validators=[
+    validators.MinValueValidator(20, message='20歳以上でお願いします'),
+    validators.MaxValueValidator(80, message='80歳以下でお願いします'),
+  ])
   mail = forms.EmailField(
     label='メールアドレス',
     widget=forms.TextInput(attrs={'class': 'mail_class', 'placeholder': 'sample@mail.com'})
@@ -25,3 +29,11 @@ def __init__(self, *args, **kwargs):
   super(UserInfo, self).__init__(*args, **kwargs)
   self.fields['job'].widget.attrs['id'] = 'id_job'
   self.fields['hobbies'].widget.attrs['class'] = 'class_hobbies'
+
+# バリデーション
+def clean_homepage(self):
+  homepage = self.cleaned_data['homepage']
+  if not homepage.startswith('https'):
+    raise forms.ValidationError('httpsから始めてください')
+
+  return homepage
