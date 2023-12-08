@@ -39,7 +39,7 @@ def clean_homepage(self):
 
   return homepage
 
-class BaseForm(forms.Modelform):
+class BaseForm(forms.ModelForm):
   def save(self, *args, **kwargs):
     print(f'Form: {self.__class__.__name__}のsaveメソッドが呼ばれました')
     return super(BaseForm, self).save(*args, **kwargs)
@@ -47,7 +47,12 @@ class BaseForm(forms.Modelform):
 # BaseFormを継承したPostModelForm
 class PostModelForm(BaseForm):
 
-  memo = forms.CharField(widget=forms.Textarea(attrs={'rows': 30, 'cols': 20}))
+  name = forms.CharField(label='名前')
+  title = forms.CharField(label='タイトル')
+  memo = forms.CharField(
+    label='メモ',
+    widget=forms.Textarea(attrs={'rows': 30, 'cols': 20})
+  )
 
   class Meta:
     model = Post
@@ -63,3 +68,10 @@ class PostModelForm(BaseForm):
     obj.save()
 
     return obj
+
+  def clean_name(self):
+    name = self.cleaned_data.get('name')
+    if name == 'ああああ':
+      raise validators.ValidationError('名前が登録できません')
+
+    return name
