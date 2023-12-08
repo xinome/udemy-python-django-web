@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.forms import formset_factory
 from . import forms
 
 # Create your views here.
@@ -35,4 +36,16 @@ def form_post(request):
 
   return render(
     request, 'formapp/form_post.html', context={'form': form}
+  )
+
+# フォームセット
+def form_set_post(request):
+  TestFormset = formset_factory(forms.FormSetPost, extra=3)
+  formset = TestFormset(request.POST or None)
+  if formset.is_valid():
+    for form in formset:
+      print(form.cleaned_data)
+
+  return render(
+    request, 'formapp/form_set_post.html', context={'formset': formset}
   )

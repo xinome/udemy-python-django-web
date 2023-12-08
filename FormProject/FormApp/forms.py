@@ -98,4 +98,6 @@ class PostModelForm(BaseForm):
       raise validators.ValidationError('タイトルが重複しています')
 
 
-    # return cleaned_data
+class FormSetPost(forms.Form):
+  title = forms.CharField(label='タイトル')
+  memo = forms.CharField(label='メモ')
