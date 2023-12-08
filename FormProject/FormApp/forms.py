@@ -1,5 +1,6 @@
 from django import forms
 from django.core import validators
+from .models import Post
 
 class UserInfo(forms.Form):
   name = forms.CharField(label='名前', max_length=10)
@@ -37,3 +38,14 @@ def clean_homepage(self):
     raise forms.ValidationError('httpsから始めてください')
 
   return homepage
+
+
+class PostModelForm(forms.ModelForm):
+
+  memo = forms.CharField(widget=forms.Textarea(attrs={'rows': 30, 'cols': 20}))
+
+  class Meta:
+    model = Post
+    # fields = '__all__'
+    # fields = ['name', 'title']
+    exvlude = ['title']

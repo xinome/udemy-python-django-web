@@ -23,3 +23,16 @@ def form_page(request):
   return render(request, 'formapp/form_page.html', context={
     'form': form
   })
+
+def form_post(request):
+  form = forms.PostModelForm()
+
+  # DBに保存
+  if request.method == 'POST':
+    form = forms.PostModelForm(request.POST)
+    if form.is_valid():
+      form.save()
+
+  return render(
+    request, 'formapp/form_post.html', context={'form': form}
+  )
