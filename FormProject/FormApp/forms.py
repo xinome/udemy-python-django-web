@@ -1,6 +1,6 @@
 from django import forms
 from django.core import validators
-from .models import Post
+from .models import Post, ModelSetPost
 
 class UserInfo(forms.Form):
   name = forms.CharField(label='名前', max_length=10)
@@ -97,7 +97,16 @@ class PostModelForm(BaseForm):
     if is_exists:
       raise validators.ValidationError('タイトルが重複しています')
 
-
+# フォームセット用のフォーム
 class FormSetPost(forms.Form):
   title = forms.CharField(label='タイトル')
   memo = forms.CharField(label='メモ')
+  
+# モデルフォームセット用のフォーム
+class ModelFormSetPost(forms.ModelForm):
+  title = forms.CharField(label='タイトル')
+  memo = forms.CharField(label='メモ')
+
+  class Meta:
+    model = ModelSetPost
+    fields = '__all__'

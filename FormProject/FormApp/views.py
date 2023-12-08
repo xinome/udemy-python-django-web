@@ -53,8 +53,9 @@ def form_set_post(request):
 
 # モデルフォームセット
 def modelform_set_post(request):
-  TestFormset = modelformset_factory(ModelSetPost, fields='__all__', extra=3)
-  formset = TestFormset(request.POST or None)
+  # TestFormset = modelformset_factory(ModelSetPost, fields='__all__', extra=3)
+  TestFormset = modelformset_factory(ModelSetPost, form=forms.ModelFormSetPost, extra=3)
+  formset = TestFormset(request.POST or None, queryset=ModelSetPost.objects.filter(id__gt=3))
   if formset.is_valid():
     formset.save()
 
