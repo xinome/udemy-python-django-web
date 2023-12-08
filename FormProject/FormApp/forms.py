@@ -39,13 +39,27 @@ def clean_homepage(self):
 
   return homepage
 
+class BaseForm(forms.Modelform):
+  def save(self, *args, **kwargs):
+    print(f'Form: {self.__class__.__name__}のsaveメソッドが呼ばれました')
+    return super(BaseForm, self).save(*args, **kwargs)
 
-class PostModelForm(forms.ModelForm):
+# BaseFormを継承したPostModelForm
+class PostModelForm(BaseForm):
 
   memo = forms.CharField(widget=forms.Textarea(attrs={'rows': 30, 'cols': 20}))
 
   class Meta:
     model = Post
-    # fields = '__all__'
+    fields = '__all__'
     # fields = ['name', 'title']
-    exvlude = ['title']
+    # exvlude = ['title']
+
+  # saveメソッドをオーバーライド
+  def save(self, *args, **kwargs):
+    # super()で親クラスのsaveメソッドを呼び出す
+    obj = super(PostModelForm, self).save(commit=False, *args, **kwargs)
+    obj.name = obj.name.upper()
+    obj.save()
+
+    return obj
