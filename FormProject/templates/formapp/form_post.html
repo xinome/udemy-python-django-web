@@ -12,6 +12,14 @@
       csrf_tokenは必ずformタグの中に書く
     {% endcomment %}
     {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    {% if form.errors %}
+      {% for key, values in form.errors.items %}
+        <p>{{key}}: {{values}}</p>
+      {% endfor %}
+    {% endif %}
+
     {{ form.name.label }}: {{ form.name }}
     {% if form.name.errors %}
       <div style="color:red">

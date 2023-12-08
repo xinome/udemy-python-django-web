@@ -75,3 +75,27 @@ class PostModelForm(BaseForm):
       raise validators.ValidationError('名前が登録できません')
 
     return name
+
+  def clean_title(self):
+    title = self.cleaned_data.get('title')
+    if title == 'ああああ':
+      raise validators.ValidationError('名前が登録できません')
+
+    return title
+
+  def clean_memo(self):
+    memo = self.cleaned_data.get('memo')
+    if memo == 'ああああ':
+      raise validators.ValidationError('名前が登録できません')
+
+    return memo
+
+  def clean(self):
+    cleaned_data = super().clean()
+    title = cleaned_data.get('title')
+    is_exists = Post.objects.filter(title=title).first()
+    if is_exists:
+      raise validators.ValidationError('タイトルが重複しています')
+
+
+    # return cleaned_data
