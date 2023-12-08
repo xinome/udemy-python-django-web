@@ -1,0 +1,19 @@
+<form
+  method="{% if mtehod %}{{ method }}{% else %}POST{% endif %}"
+  action="{% if action %}{{ action }}{% endif %}"
+>
+  {% comment %}
+    csrf_tokenは必ずformタグの中に書く
+  {% endcomment %}
+  {% csrf_token %}
+
+  {% if as_table %}
+    <table>{{ form.as_table }}</table>
+  {% elif as_ul %}
+    {{ form.as_ul }}
+  {% else %}
+    {{ form.as_p }}
+  {% endif %}
+  {{ form.as_p }}
+  <input type="submit" value="送信">
+</form>
