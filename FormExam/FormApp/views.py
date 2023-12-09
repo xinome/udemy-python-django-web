@@ -3,9 +3,11 @@ from . import forms
 from .models import Students
 from django.core.files.storage import FileSystemStorage
 import os
+from django.forms import modelformset_factory
 
 # Create your views here.
 
+# メンバー追加
 def insert_student(request):
   insert_form = forms.StudentInsertForm(request.POST or None, request.FILES or None)
   if insert_form.is_valid():
@@ -16,13 +18,14 @@ def insert_student(request):
     'insert_form': insert_form
   })
 
-
+# メンバー一覧
 def students_list(request):
   students = Students.objects.all()
   return render(request, 'form_app/students_list.html', context={
     'students': students
   })
 
+# メンバー編集
 def update_student(request, id):
   student = Students.objects.get(id=id)
   update_form = forms.StudentUpdateForm(
@@ -54,6 +57,7 @@ def update_student(request, id):
     'student': student
   })
 
+# メンバー削除
 def delete_student(request, id):
   delete_form = forms.StudentDeleteForm(
     initial = {
@@ -68,4 +72,15 @@ def delete_student(request, id):
 
   return render(request, 'form_app/delete_student.html', context={
     'delete_form': delete_form
+  })
+
+# メンバーを一括登録
+def insert_multiple_students(request):
+  StudentFormSet = modelformset_factory(Students, fields='__all__', extra=3)
+  insert_form = StudentFormSet(request.POST or None, request.FILES or None)
+  if insert_form.is_valid():
+    insert_form.save()
+  
+  return render(request, 'form_app/insert_multiple_students.html', context={
+    'insert_form': insert_form
   })
