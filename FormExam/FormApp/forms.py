@@ -23,3 +23,11 @@ class StudentUpdateForm(forms.Form):
   class Meta:
     model = Students
     fields = '__all__'
+
+# メンバー削除フォーム
+class StudentDeleteForm(forms.Form):
+  id = forms.IntegerField(widget=forms.HiddenInput())
+
+  class Meta:
+    model = Students
+    fields = '__all__'

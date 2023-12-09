@@ -10,4 +10,5 @@
     <input type="submit" value="メンバー更新">
     <p><img src={{ student.picture.url }} /></p>
   </form>
+  <p><a href="{% url 'form_app:delete_student' id=student.id %}">削除する</a></p>
 {% endblock %}
