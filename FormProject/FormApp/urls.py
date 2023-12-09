@@ -9,4 +9,5 @@ urlpatterns = [
   path('form_post/', views.form_post, name='form_post'),
   path('form_set_post/', views.form_set_post, name='form_set_post'),
   path('modelform_set_post/', views.modelform_set_post, name='modelform_set_post'),
+  path('upload_sample/', views.upload_sample, name='upload_sample'),
 ]
