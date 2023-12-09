@@ -7,5 +7,5 @@ class Students(models.Model):
   grade = models.IntegerField()
   picture = models.FileField(upload_to='student/')
 
-  def Meta():
+  class Meta:
     db_table = 'students'
