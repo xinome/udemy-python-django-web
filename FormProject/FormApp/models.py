@@ -11,3 +11,9 @@ class Post(models.Model):
 class ModelSetPost(models.Model):
   title = models.CharField(max_length=255)
   memo = models.CharField(max_length=255)
+
+
+class User(models.Model):
+  name = models.CharField(max_length=50)
+  age = models.IntegerField()
+  picture = models.FileField(upload_to='picture/')
