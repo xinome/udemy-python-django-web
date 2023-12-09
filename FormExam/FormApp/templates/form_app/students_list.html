@@ -12,7 +12,11 @@
     </tr>
     {% for student in students %}
       <tr>
-        <td>{{ student.name }}</td>
+        <td>
+          <a href="{% url 'form_app:update_student' id=student.id %}">
+            {{ student.name }}
+          </a>
+        </td>
         <td>{{ student.age }}</td>
         <td>{{ student.grade }}</td>
       </tr>
