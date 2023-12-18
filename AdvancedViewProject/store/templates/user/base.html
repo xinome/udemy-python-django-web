@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <nav>
+    <a href="{% url 'user:index' %}">ホーム</a>
+    <a href="{% url 'admin:index' %}">管理画面</a>
+    <a href="{% url 'user:register' %}">登録画面</a>
+  </nav>
+  <div>
+    {% block content %}
+    {% endblock %}
+  </div>
+</body>
+</html>
