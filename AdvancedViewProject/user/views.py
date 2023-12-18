@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from user.forms import UserForm, ProfileForm, LoginForm
 
@@ -52,3 +53,13 @@ def user_login(request):
   return render(request, 'user/login.html', context={
     'login_form': login_form
   })
+
+# ログアウト
+@login_required
+def user_logout(request):
+  logout(request)
+  return redirect('user:index')
+
+@login_required
+def info(request):
+  return HttpResponse('ログインしています')
