@@ -20,6 +20,7 @@ from store import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('store/', include('store.urls')),
+    path('user/', include('user.urls')),
 ]
 
 handler404 = 'store.views.page_not_found'
