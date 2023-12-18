@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 
 from user.forms import UserForm, ProfileForm, LoginForm
 
@@ -18,7 +20,18 @@ def register(request):
   profile_form = ProfileForm(request.POST or None, request.FILES or None)
 
   if user_form.is_valid() and profile_form.is_valid():
-    user = user_form.save()
+    user = user_form.save(commit=False)
+
+    # パスワードのバリデーション
+    try:
+      validate_password(user_form.cleaned_data.get('password', user))
+    except ValidationError as e:
+      user_form.add_error('password', e)
+      return render(request, 'user/registration.html', context={
+        'user_form': user_form,
+        'profile_form': profile_form
+      })
+
     user.set_password(user.password)
     user.save()  # ユーザを保存
 
