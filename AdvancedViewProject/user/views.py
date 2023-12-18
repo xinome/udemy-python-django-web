@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.contrib.auth import authenticate, login
 
-from user.forms import UserForm, ProfileForm
+from user.forms import UserForm, ProfileForm, LoginForm
 
 # Create your views here.
 
@@ -26,4 +28,27 @@ def register(request):
   return render(request, 'user/registration.html', context={
     'user_form': user_form,
     'profile_form': profile_form
+  })
+
+def user_login(request):
+  login_form = LoginForm(request.POST or None)
+
+  if login_form.is_valid():
+    username = login_form.cleaned_data['username']
+    password = login_form.cleaned_data['password']
+
+    # ユーザが存在し、かつパスワードが正しい場合
+    user = authenticate(username=username, password=password)
+
+    if user:
+      if user.is_active:
+        login(request, user)
+        return redirect('user:index')
+      else:
+        return HttpResponse('アカウントが無効です')
+    else:
+      return HttpResponse('ユーザーが存在しません')
+
+  return render(request, 'user/login.html', context={
+    'login_form': login_form
   })

@@ -20,3 +20,18 @@ class ProfileForm(forms.ModelForm):
   class Meta():
     model = Profile
     fields = ('website', 'picture')
+
+class LoginForm(forms.Form):
+  username = forms.CharField(label='名前', max_length=150)
+  password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
+  confirm_password = forms.CharField(label='パスワード再入力', widget=forms.PasswordInput())
+
+  def clean(self):
+    cleaned_data = super().clean()
+    password = cleaned_data['password']
+    confirm_password = cleaned_data['confirm_password']
+
+    if password != confirm_password:
+      raise forms.ValidationError('パスワードが一致しません')
+
+
