@@ -22,7 +22,7 @@ class UserCreationForm(forms.ModelForm):
     if password != confirm_password:
       raise ValidationError('パスワードが一致しません。')
 
-  def save(self):
+  def save(self, commit=False):
     user = super().save(commit=False)
     user.set_password(self.cleaned_data.get('password'))
     user.save()
@@ -35,7 +35,7 @@ class UserChangeForm(forms.ModelForm):
 
   class Meta:
     model = User
-    fields = ('username', 'email', 'password', 'is_staff', 'is_active', 'website', 'picture')
+    fields = ('username', 'email', 'password', 'is_staff', 'is_active', 'is_superuser', 'website', 'picture')
 
   def clean_password(self):
     # すでに登録されているパスワードを返す
