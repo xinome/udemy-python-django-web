@@ -32,7 +32,7 @@ class CustomizeUserAdmin(UserAdmin):
 # adminサイトでユーザーを管理できるようにする
 admin.site.register(User, CustomizeUserAdmin)
 # admin.site.register(Students)
-admin.site.register(Schools)
+# admin.site.register(Schools)
 
 @admin.register(Students)
 class StudentAdmin(admin.ModelAdmin):
@@ -47,3 +47,18 @@ class StudentAdmin(admin.ModelAdmin):
 
   # 一覧画面で編集可能にする項目、リンク指定した項目は編集不可
   list_editable = ('age', 'score')
+
+
+@admin.register(Schools)
+class SchoolsAdmin(admin.ModelAdmin):
+  list_display = ('name', 'student_count')
+
+  def student_count(self, obj):
+    # print(type(obj))
+    # print(dir(obj))
+
+    count = obj.students_set.count()  # 逆参照でstudentの数をカウントして返す
+    return count
+
+  # カラム名を変更
+  student_count.short_description = '生徒数'
