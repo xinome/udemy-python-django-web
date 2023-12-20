@@ -40,3 +40,10 @@ class StudentAdmin(admin.ModelAdmin):
   fields = ('name', 'score', 'age', 'school')
   list_display = ('id', 'name', 'age', 'score', 'school')
   list_display_links = ('name', )  # 一覧画面でリンクにする項目、タプルは最後にカンマをつける
+
+  # 一覧画面で検索、フィルターする項目
+  search_fields = ('name', 'age')
+  list_filter = ('name', 'age', 'school', 'score')
+
+  # 一覧画面で編集可能にする項目、リンク指定した項目は編集不可
+  list_editable = ('age', 'score')
