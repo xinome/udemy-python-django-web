@@ -3,6 +3,9 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
 from .forms import UserCreationForm, UserChangeForm
 
+# カスタマイズモデル
+from .models import Students, Schools
+
 # Register your models here.
 
 User = get_user_model()
@@ -28,3 +31,5 @@ class CustomizeUserAdmin(UserAdmin):
 
 # adminサイトでユーザーを管理できるようにする
 admin.site.register(User, CustomizeUserAdmin)
+admin.site.register(Students)
+admin.site.register(Schools)

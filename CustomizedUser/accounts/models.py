@@ -51,3 +51,28 @@ class User(AbstractBaseUser, PermissionsMixin):
 
   def __str__(self):
     return self.email
+
+# カスタマイズモデル
+class Students(models.Model):
+  name = models.CharField(max_length=20)
+  age = models.IntegerField()
+  score = models.IntegerField()
+  school = models.ForeignKey('Schools', on_delete=models.CASCADE)
+
+  class Meta:
+    db_table = 'students'
+    verbose_name_plural = '生徒'  # 管理画面で表示されるモデル名を変更
+
+  def __str__(self):
+    return self.name + ': ' + str(self.age)
+
+class Schools(models.Model):
+  name = models.CharField(max_length=20)
+
+  class Meta:
+    db_table = 'schools'
+    verbose_name_plural = '学校'  # 管理画面で表示されるモデル名を変更
+
+  def __str__(self):
+    return self.name
+
