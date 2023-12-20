@@ -62,6 +62,7 @@ class Students(models.Model):
   class Meta:
     db_table = 'students'
     verbose_name_plural = '生徒'  # 管理画面で表示されるモデル名を変更
+    ordering = ('score', )  # 一覧画面での並び順を指定
 
   def __str__(self):
     return self.name + ': ' + str(self.age)

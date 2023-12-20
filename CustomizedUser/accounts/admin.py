@@ -31,5 +31,12 @@ class CustomizeUserAdmin(UserAdmin):
 
 # adminサイトでユーザーを管理できるようにする
 admin.site.register(User, CustomizeUserAdmin)
-admin.site.register(Students)
+# admin.site.register(Students)
 admin.site.register(Schools)
+
+@admin.register(Students)
+class StudentAdmin(admin.ModelAdmin):
+  # 一覧画面で表示する項目
+  fields = ('name', 'score', 'age', 'school')
+  list_display = ('id', 'name', 'age', 'score', 'school')
+  list_display_links = ('name', )  # 一覧画面でリンクにする項目、タプルは最後にカンマをつける
