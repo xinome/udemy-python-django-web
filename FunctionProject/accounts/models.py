@@ -25,12 +25,28 @@ class Users(AbstractBaseUser, PermissionsMixin):
   class Meta:
     db_table = 'users'
 
+# ユーザー登録時にUserActivateTokensモデルにレコードを作成するためのモデル
+class UserActivaeTokensManager(models.Manager):
+
+  def activate_user_by_token(self, token):
+    user_activate_token = self.filter(
+      token=token,
+      expired_at__gte=datetime.now()
+    ).first()
+    user = user_activate_token.user
+    user.is_active = True
+    user.save()
+
+
 class UserActivateTokens(models.Model):
   token = models.UUIDField(db_index=True)
   expired_at = models.DateTimeField()
   user = models.ForeignKey(
     'Users', on_delete=models.CASCADE
   )
+
+  # モデルマネージャーをオーバーライド
+  objects = UserActivaeTokensManager()
 
   class Meta:
     db_table = 'user_activate_tokens'
