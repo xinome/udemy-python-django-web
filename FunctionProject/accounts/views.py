@@ -19,3 +19,6 @@ def regist(request):
   return render(request, 'accounts/regist.html', context={
     'regist_form': regist_form,
   })
+
+def activate_user(request, token):
+  pass
