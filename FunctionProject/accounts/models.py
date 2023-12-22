@@ -8,6 +8,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from uuid import uuid4
 from datetime import datetime, timedelta
+from django.contrib.auth.models import UserManager
 
 # Create your models here.
 
@@ -18,6 +19,8 @@ class Users(AbstractBaseUser, PermissionsMixin):
   is_active = models.BooleanField(default=False)
   is_staff = models.BooleanField(default=False)
   picture = models.FileField(null=True, upload_to='picture/')
+
+  objects = UserManager()
 
   USERNAME_FIELD = 'email'
   REQUIRED_FIELDS = ['username']
