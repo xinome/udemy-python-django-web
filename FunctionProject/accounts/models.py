@@ -4,6 +4,11 @@ from django.contrib.auth.models import (
   PermissionsMixin,
 )
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from uuid import uuid4
+from datetime import datetime, timedelta
+
 # Create your models here.
 
 class Users(AbstractBaseUser, PermissionsMixin):
@@ -29,3 +34,18 @@ class UserActivateTokens(models.Model):
 
   class Meta:
     db_table = 'user_activate_tokens'
+
+# シグナルを使って、ユーザー登録時にUserActivateTokensモデルにレコードを作成する
+@receiver(post_save, sender=Users)
+def publish_token(sender, instance, **kwargs):
+  print(str(uuid4()))
+  print(datetime.now() + timedelta(days=1))
+
+  user_activate_token = UserActivateTokens.objects.create(
+    user=instance,
+    token=str(uuid4()),
+    expired_at=datetime.now() + timedelta(days=1)
+  )
+
+  # 本来メールでユーザー登録用のURLを送信する部分
+  print(f'http://localhost:8000/accounts/activate_user/{user_activate_token.token}')
