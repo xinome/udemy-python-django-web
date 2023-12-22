@@ -5,5 +5,6 @@ app_name = 'accounts'
 
 urlpatterns = [
   path('', views.home, name='home'),
-  
+  path('regist/', views.regist, name='regist'),
+
 ]
