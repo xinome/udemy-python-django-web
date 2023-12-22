@@ -137,6 +137,8 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # メディアファイルのディレクトリを指定
 MEDIA_URL = '/media/'  # メディアファイルのURLを指定
 
+AUTH_USER_MODEL = 'accounts.Users'  # accounts/models.pyのUserモデルを使用するように指定
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
