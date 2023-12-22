@@ -31,10 +31,10 @@ def activate_user(request, token):
 
 # ログイン、ログアウト
 def user_login(request):
-  login_forms = forms.LoginForm(request.POST or None)
-  if login_forms.is_valid():
-    email = login_forms.cleaned_data['email']
-    password = login_forms.cleaned_data['password']
+  login_form = forms.LoginForm(request.POST or None)
+  if login_form.is_valid():
+    email = login_form.cleaned_data['email']
+    password = login_form.cleaned_data['password']
 
     user = authenticate(email=email, password=password)
     if user:
@@ -49,7 +49,7 @@ def user_login(request):
       messages.warning(request, 'ユーザーかパスワードが間違っています。')
 
   return render(request, 'accounts/user_login.html', context={
-    'login_forms': login_forms,
+    'login_form': login_form,
   })
 
 @login_required

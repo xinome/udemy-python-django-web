@@ -29,5 +29,5 @@ class RegistForm(forms.ModelForm):
     return user
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(label='メールアドレス')
-    password = forms.CharField(label='パスワード')
+  email = forms.EmailField(label='メールアドレス')
+  password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
