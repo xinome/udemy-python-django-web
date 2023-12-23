@@ -67,21 +67,22 @@ def user_edit(request):
   if user_edit_form.is_valid():
     messages.success(request, '更新完了しました。')
     user_edit_form.save()
-    return redirect( request, 'accounts/user_edit.html', context={
-      'user_edit_form': user_edit_form,
-    })
+
+  return render(request, 'accounts/user_edit.html', context={
+    'user_edit_form': user_edit_form,
+  })
 
 @login_required
 def change_password(request):
-  change_password_form = forms.PasswordChangeForm(request.POST or None, instance=request.user)
+  password_change_form = forms.PasswordChangeForm(request.POST or None, instance=request.user)
 
-  if change_password_form.is_valid():
+  if password_change_form.is_valid():
     try:
-      change_password_form.save()
+      password_change_form.save()
       messages.success(request, 'パスワード変更完了しました。')
       update_session_auth_hash(request, request.user)
     except ValidationError as e:
-      change_password_form.add_error('password', e)
+      password_change_form.add_error('password', e)
 
   return render(request, 'accounts/change_password.html', context={
     'password_change_form': password_change_form,
