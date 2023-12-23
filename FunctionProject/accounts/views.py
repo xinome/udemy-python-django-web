@@ -6,6 +6,7 @@ from .models import UserActivateTokens
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
 
 # Create your views here.
 def home(request):
@@ -69,3 +70,19 @@ def user_edit(request):
     return redirect( request, 'accounts/user_edit.html', context={
       'user_edit_form': user_edit_form,
     })
+
+@login_required
+def change_password(request):
+  change_password_form = forms.PasswordChangeForm(request.POST or None, instance=request.user)
+
+  if change_password_form.is_valid():
+    try:
+      change_password_form.save()
+      messages.success(request, 'パスワード変更完了しました。')
+      update_session_auth_hash(request, request.user)
+    except ValidationError as e:
+      change_password_form.add_error('password', e)
+
+  return render(request, 'accounts/change_password.html', context={
+    'password_change_form': password_change_form,
+  })
