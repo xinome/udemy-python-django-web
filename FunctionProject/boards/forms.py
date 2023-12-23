@@ -8,3 +8,9 @@ class CreateThemeForm(forms.ModelForm):
     model = Themes
     fields = ('title',)
 
+
+class DeleteThemeForm(forms.ModelForm):
+  
+  class Meta:
+    model = Themes
+    fields = []
